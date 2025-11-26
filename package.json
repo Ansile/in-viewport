@@ -7,7 +7,7 @@
     "build": "browserify ./in-viewport.js -s inViewport -p deumdify | ccjs - > build/in-viewport.min.js",
     "watch": "watchify ./in-viewport.js -d -s inViewport -p deumdify -o build/in-viewport.min.js -v",
     "dev": "npm run watch & DEBUG=zuul* zuul --local 8080 -- test/*.js",
-    "test": "DEBUG=zuul* zuul --tunnel ngrok -- test/*.js"
+    "test": "vitest"
   },
   "type": "module",
   "repository": {
