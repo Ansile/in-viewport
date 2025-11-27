@@ -1,5 +1,6 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 describe('using a div overlapping another div', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 

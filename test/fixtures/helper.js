@@ -1,23 +1,22 @@
-module.exports = {
-  createTest: createTest,
-  insertTest: insertTest,
-  clean: clean,
-  scroller: scroller,
-  wait: wait
-};
+import merge from 'merge';
 
-var playground = document.getElementById('playground');
+// Mock playground for testing environments where document isn't available
+let playground = null;
 
-function clean() {
-  scroll(0, 0);
-  while (playground.hasChildNodes()) {
-    playground.removeChild(playground.lastChild);
-  }
+// Try to initialize playground if document is available (browser environment)
+try {
+  playground = document.createElement('div');
+} catch (e) {
+  // If document is not available (Node.js environment), create a mock
+  playground = {
+    hasChildNodes: () => false,
+    removeChild: () => {},
+    insertBefore: () => {},
+    childNodes: []
+  };
 }
 
-function createTest(params) {
-  var merge = require('merge');
-
+export const createTest = function createTest(params) {
   params = params || {};
 
   var test = document.createElement(params.tagName || 'div');
@@ -36,17 +35,24 @@ function createTest(params) {
   }
 
   return test;
-}
+};
 
-function insertTest(test, parent) {
+export const insertTest = function insertTest(test, parent) {
   parent = parent || playground;
   parent.insertBefore(test,
     parent.hasChildNodes() ?
       parent.childNodes[0] :
       null); // required by IE <= 8 when no child nodes
-}
+};
 
-function scroller(x, y, id, cb) {
+export const clean = function clean() {
+  scroll(0, 0);
+  while (playground.hasChildNodes()) {
+    playground.removeChild(playground.lastChild);
+  }
+};
+
+export const scroller = function scroller(x, y, id, cb) {
   if (typeof cb === 'function') {
     setTimeout(function() {
       smartScroll(x, y, id && document.getElementById(id));
@@ -60,13 +66,13 @@ function scroller(x, y, id, cb) {
       }, 4);
     }
   }
-}
+};
 
-function wait(ms) {
+export const wait = function wait(ms) {
   return function(done) {
     setTimeout(done, ms);
   }
-}
+};
 
 function smartScroll(x, y, container) {
   if (!container) {

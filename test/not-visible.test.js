@@ -1,8 +1,9 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 function testElem(x, y, offsetTest) {
   offsetTest = offsetTest || 0;
 
   describe('dealing with an element located at '+x+','+y, function() {
-    require('./fixtures/bootstrap.js');
     beforeEach(h.clean);
     afterEach(h.clean);
 

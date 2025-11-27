@@ -1,5 +1,6 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 describe('using the watcher API to dispose and watch again', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 

@@ -1,7 +1,8 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 var supportsMutationObserver = typeof global.MutationObserver === 'function';
 if (supportsMutationObserver) {
   describe('asking if a hidden div is in the viewport', function() {
-    require('./fixtures/bootstrap.js');
     beforeEach(h.clean);
     afterEach(h.clean);
 

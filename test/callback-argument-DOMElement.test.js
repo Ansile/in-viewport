@@ -1,6 +1,6 @@
-describe('in-viewport watch callback', function() {
-  require('./fixtures/bootstrap.js');
+import { h, assert } from './fixtures/bootstrap.js';
 
+describe('in-viewport watch callback', function() {
   beforeEach(h.clean);
   afterEach(h.clean);
 

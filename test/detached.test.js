@@ -1,5 +1,6 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 describe('detached DOM node', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 

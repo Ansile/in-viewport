@@ -1,5 +1,6 @@
+import { h, assert } from './fixtures/bootstrap.js';
+
 describe('without using callbacks', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 

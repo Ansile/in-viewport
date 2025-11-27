@@ -17,6 +17,7 @@
   "author": "Vincent Voyer <vincent.voyer@gmail.com> (http://github.com/vvo)",
   "license": "MIT",
   "devDependencies": {
+    "jsdom": "^27.2.0",
     "merge": "1.2.0",
     "vitest": "^4.0.14"
   }
