@@ -1,4 +1,5 @@
 import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
 
 function testElem(x, y, offsetTest) {
   offsetTest = offsetTest || 0;
@@ -37,12 +38,12 @@ function testElem(x, y, offsetTest) {
       });
     });
 
-    describe('when we scroll near the element (offset)', function() {
+    describe('when we scroll near the element (offset)', async function() {
       beforeEach(h.scroller(x - offsetTest, y - offsetTest));
       beforeEach(h.scroller(x - offsetTest + 1, y - offsetTest + 1));
       beforeEach(h.wait(50));
 
-      it('cb called', function() {
+      it('cb called', async function() {
         assert.strictEqual(calls.length, 1);
       });
     });

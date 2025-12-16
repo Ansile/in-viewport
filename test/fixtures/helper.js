@@ -1,20 +1,9 @@
 import merge from 'merge';
 
-// Mock playground for testing environments where document isn't available
-let playground = null;
+const playground = document.createElement('div');
+playground.id = 'playground';
+document.body.appendChild(playground);
 
-// Try to initialize playground if document is available (browser environment)
-try {
-  playground = document.createElement('div');
-} catch (e) {
-  // If document is not available (Node.js environment), create a mock
-  playground = {
-    hasChildNodes: () => false,
-    removeChild: () => {},
-    insertBefore: () => {},
-    childNodes: []
-  };
-}
 
 export const createTest = function createTest(params) {
   params = params || {};
@@ -52,26 +41,25 @@ export const clean = function clean() {
   }
 };
 
-export const scroller = function scroller(x, y, id, cb) {
-  if (typeof cb === 'function') {
+export const scroller = function scroller(x, y, id) {
+  return () => new Promise((cb) => {
     setTimeout(function() {
       smartScroll(x, y, id && document.getElementById(id));
       setTimeout(cb, 70);
     }, 4);
-  } else {
-    return function(cb) {
-      setTimeout(function() {
-        smartScroll(x, y, id && document.getElementById(id));
-        setTimeout(cb, 70);
-      }, 4);
-    }
-  }
+  });
 };
 
+// export const wait = function wait(ms) {
+//   return function(done) {
+//     setTimeout(done, ms);
+//   }
+// };
+
 export const wait = function wait(ms) {
-  return function(done) {
+  return () => new Promise((done) => {
     setTimeout(done, ms);
-  }
+  })
 };
 
 function smartScroll(x, y, container) {

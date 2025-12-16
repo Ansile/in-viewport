@@ -1,4 +1,5 @@
 import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
 
 describe('using a div overlapping another div', function() {
   beforeEach(h.clean);

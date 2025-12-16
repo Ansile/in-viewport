@@ -1,4 +1,5 @@
 import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
 
 describe('in-viewport watch callback', function() {
   beforeEach(h.clean);

@@ -1,4 +1,6 @@
 import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+import { createOpenPromise } from 'o-promise';
 
 describe('using the watcher API to dispose and watch again', function() {
   beforeEach(h.clean);
@@ -8,7 +10,8 @@ describe('using the watcher API to dispose and watch again', function() {
   var watcher;
   var visible = false;
 
-  beforeEach(function(done) {
+  beforeEach(function() {
+    const {promise, resolve} = createOpenPromise();
     element = h.createTest({
       style: {
         top: '10000px'
@@ -19,7 +22,8 @@ describe('using the watcher API to dispose and watch again', function() {
       visible = true;
     });
     // let in-viewport add the node to his watches
-    setTimeout(done, 20);
+    setTimeout(resolve, 20);
+    return promise;
   });
 
   describe('when the watcher is not active', function() {

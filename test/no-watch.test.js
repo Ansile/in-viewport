@@ -1,4 +1,5 @@
 import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
 
 describe('without using callbacks', function() {
   beforeEach(h.clean);

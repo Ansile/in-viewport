@@ -7,7 +7,8 @@
     "build": "browserify ./in-viewport.js -s inViewport -p deumdify | ccjs - > build/in-viewport.min.js",
     "watch": "watchify ./in-viewport.js -d -s inViewport -p deumdify -o build/in-viewport.min.js -v",
     "dev": "npm run watch & DEBUG=zuul* zuul --local 8080 -- test/*.js",
-    "test": "vitest"
+    "test": "vitest",
+    "test:browser": "vitest --config=vitest.browser.config.ts"
   },
   "type": "module",
   "repository": {
@@ -17,8 +18,10 @@
   "author": "Vincent Voyer <vincent.voyer@gmail.com> (http://github.com/vvo)",
   "license": "MIT",
   "devDependencies": {
+    "@vitest/browser-playwright": "^4.0.16",
     "jsdom": "^27.2.0",
     "merge": "1.2.0",
+    "o-promise": "^1.4.0",
     "vitest": "^4.0.14"
   }
 }
