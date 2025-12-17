@@ -1,27 +1,36 @@
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+import {createOpenPromise} from 'o-promise'
+
 describe('usage with high debounce', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 
   var scrolled = false;
   var test;
 
-  beforeEach(function(done) {
+  beforeEach(function() {
     test = h.createTest();
     h.insertTest(test);
+  });
+
+  it('callback called', async function() {
+    const {promise, resolve} = createOpenPromise();
+
     inViewport(
       test,
       {
         debounce: 500
+
       },
       function() {
         scrolled = true;
-        done();
+        resolve();
       }
     );
-  });
 
-  it('callback called', function() {
+    await promise;
+
     assert(scrolled === true);
-  });
+  }, 1500);
 });

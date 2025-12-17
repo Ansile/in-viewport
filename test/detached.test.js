@@ -1,5 +1,7 @@
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+
 describe('detached DOM node', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 
@@ -37,10 +39,9 @@ describe('detached DOM node', function() {
     });
 
     describe('with scrolling', function () {
-      beforeEach(h.scroller(0, 100));
-      beforeEach(h.scroller(0, 0));
-
       it('cb called', function() {
+        h.scroller(0, 100)
+        h.scroller(0, 0)
         assert.strictEqual(visible, true);
       });
     });

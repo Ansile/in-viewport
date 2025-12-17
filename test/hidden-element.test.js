@@ -1,7 +1,9 @@
-var supportsMutationObserver = typeof global.MutationObserver === 'function';
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+
+var supportsMutationObserver = typeof globalThis.MutationObserver === 'function';
 if (supportsMutationObserver) {
   describe('asking if a hidden div is in the viewport', function() {
-    require('./fixtures/bootstrap.js');
     beforeEach(h.clean);
     afterEach(h.clean);
 
@@ -31,13 +33,13 @@ if (supportsMutationObserver) {
     });
 
     describe('when element becomes visible', function(done) {
-      beforeEach(function(done) {
+      beforeEach(function() {
         test.style.display = 'block';
-        setTimeout(done, 40);
       });
 
-      it('callback called', function() {
-        assert(visible === true);
+      it('callback called', async function() {
+        await h.wait(40)();
+        assert(visible);
       });
     });
   });

@@ -1,5 +1,7 @@
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+
 describe('using offsets', function() {
-  require('./fixtures/bootstrap.js');
   beforeEach(h.clean);
   afterEach(h.clean);
 

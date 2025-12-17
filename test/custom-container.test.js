@@ -1,5 +1,7 @@
-describe('using a div overlapping another div', function() {
-  require('./fixtures/bootstrap.js');
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+
+describe('using a div as a reference container', function() {
   beforeEach(h.clean);
   afterEach(h.clean);
 
@@ -11,9 +13,7 @@ describe('using a div overlapping another div', function() {
     calls = [];
     test = h.createTest({
       style: {
-        left: '-10px',
-        width: '100px',
-        background: '#000',
+        left: '1000px',
         top: '1000px'
       }
     });
@@ -25,7 +25,7 @@ describe('using a div overlapping another div', function() {
       style: {
         width: '500px',
         height: '500px',
-        overflow: 'auto'
+        overflow: 'scroll'
       }
     });
 
@@ -66,8 +66,8 @@ describe('using a div overlapping another div', function() {
     });
 
     describe('to the element', function() {
-      beforeEach(h.scroller(0, 1000, 'container'));
-      beforeEach(h.scroller(0, 1005, 'container'));
+      beforeEach(h.scroller(1000, 1000, 'container'));
+      beforeEach(h.scroller(1005, 1005, 'container'));
       beforeEach(h.wait(50));
 
       it('cb was called', function() {

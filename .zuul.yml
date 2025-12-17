@@ -1,7 +1,7 @@
 ui: mocha-bdd
 html: test/fixtures/template.html
 scripts:
-  - build/in-viewport.min.js
+  - in-viewport.js
 browsers:
   - name: chrome
     version: -1..latest

@@ -1,11 +1,11 @@
-module.exports = inViewport;
+export default inViewport;
 
 var instances = [];
-var supportsMutationObserver = typeof global.MutationObserver === 'function';
+var supportsMutationObserver = typeof globalThis.MutationObserver === 'function';
 
 function inViewport(elt, params, cb) {
   var opts = {
-    container: global.document.body,
+    container: globalThis.document.body,
     offset: 0,
     debounce: 15,
     failsafe: 150
@@ -74,14 +74,14 @@ function debounce(func, wait, immediate) {
 
 // https://github.com/jquery/sizzle/blob/3136f48b90e3edc84cbaaa6f6f7734ef03775a07/sizzle.js#L708
 var contains = function() {
-  if (!global.document) {
+  if (!globalThis.document) {
     return true;
   }
-  return global.document.documentElement.compareDocumentPosition ?
+  return globalThis.document.documentElement.compareDocumentPosition ?
     function (a, b) {
       return !!(a.compareDocumentPosition(b) & 16);
     } :
-    global.document.documentElement.contains ?
+    globalThis.document.documentElement.contains ?
       function (a, b) {
         return a !== b && ( a.contains ? a.contains(b) : false );
       } :
@@ -98,13 +98,13 @@ var contains = function() {
 function createInViewport(container, debounceValue, failsafe) {
   var watches = createWatches();
 
-  var scrollContainer = container === global.document.body ? global : container;
+  var scrollContainer = container === globalThis.document.body ? globalThis : container;
   var debouncedCheck = debounce(watches.checkAll(watchInViewport), debounceValue);
 
   addEvent(scrollContainer, 'scroll', debouncedCheck);
 
-  if (scrollContainer === global) {
-    addEvent(global, 'resize', debouncedCheck);
+  if (scrollContainer === globalThis) {
+    addEvent(globalThis, 'resize', debouncedCheck);
   }
 
   if (supportsMutationObserver) {
@@ -156,7 +156,7 @@ function createInViewport(container, debounceValue, failsafe) {
       return false;
     }
 
-    if (!contains(global.document.documentElement, elt) || !contains(global.document.documentElement, container)) {
+    if (!contains(globalThis.document.documentElement, elt) || !contains(globalThis.document.documentElement, container)) {
       return false;
     }
 
@@ -169,12 +169,12 @@ function createInViewport(container, debounceValue, failsafe) {
     var eltRect = elt.getBoundingClientRect();
     var viewport = {};
 
-    if (container === global.document.body) {
+    if (container === globalThis.document.body) {
       viewport = {
         top: -offset,
         left: -offset,
-        right: global.document.documentElement.clientWidth + offset,
-        bottom: global.document.documentElement.clientHeight + offset
+        right: globalThis.document.documentElement.clientWidth + offset,
+        bottom: globalThis.document.documentElement.clientHeight + offset
       };
     } else {
       var containerRect = container.getBoundingClientRect();

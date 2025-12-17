@@ -1,2 +1,12 @@
-h = require('./helper.js');
-assert = require('assert');
+import { createTest, insertTest, clean, scroller, wait } from './helper.js';
+import { assert } from 'vitest';
+
+export const h = {
+  createTest,
+  insertTest,
+  clean,
+  scroller,
+  wait
+};
+
+export { assert };

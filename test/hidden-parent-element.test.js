@@ -1,8 +1,11 @@
 // this test checks that we have a
-var supportsMutationObserver = typeof global.MutationObserver === 'function';
+import { h, assert } from './fixtures/bootstrap.js';
+import inViewport from '../in-viewport.js';
+import { createOpenPromise } from 'o-promise';
+
+var supportsMutationObserver = typeof globalThis.MutationObserver === 'function';
 if (supportsMutationObserver) {
   describe('asking if a div inside a hidden div is in the viewport', function() {
-    require('./fixtures/bootstrap.js');
     beforeEach(h.clean);
     afterEach(h.clean);
 
@@ -40,15 +43,15 @@ if (supportsMutationObserver) {
       assert(visible === false);
     });
 
-    describe('when parent becomes visible, setInterval failsafe discovers the element', function(done) {
-      beforeEach(function(done) {
+    describe('when parent becomes visible, setInterval failsafe discovers the element', function() {
+      it('callback called', async function() {
+        const {promise, resolve} = createOpenPromise();
         parent.style.display = 'block';
-        setTimeout(done, 200);
-      });
+        setTimeout(resolve, 200);
+        await promise;
 
-      it('callback called', function() {
         assert(visible === true);
-      });
+      }, 1000);
     });
   });
 }
