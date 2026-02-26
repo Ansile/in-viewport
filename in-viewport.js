@@ -1,5 +1,3 @@
-export default inViewport;
-
 var instances = [];
 var supportsMutationObserver = typeof globalThis.MutationObserver === 'function';
 
@@ -8,7 +6,7 @@ function inViewport(elt, params, cb) {
     container: globalThis.document.body,
     offset: 0,
     debounce: 15,
-    failsafe: 150
+    failsafe: !params?.container,
   };
 
   if (params === undefined || typeof params === 'function') {
@@ -20,6 +18,7 @@ function inViewport(elt, params, cb) {
   var offset = opts.offset = params.offset || opts.offset;
   var debounceValue = opts.debounce = params.debounce || opts.debounce;
   var failsafe = opts.failsafe = params.failsafe || opts.failsafe;
+  var useObserver = failsafe;
 
   // ensure backward compatibility with failsafe as boolean
   if (failsafe === true) {
@@ -44,7 +43,7 @@ function inViewport(elt, params, cb) {
   }
 
   return instances[
-    instances.push(createInViewport(container, debounceValue, failsafe)) - 1
+    instances.push(createInViewport(container, debounceValue, failsafe, useObserver)) - 1
   ].isInViewport(elt, offset, cb);
 }
 
@@ -95,7 +94,7 @@ var contains = function() {
       };
 }
 
-function createInViewport(container, debounceValue, failsafe) {
+function createInViewport(container, debounceValue, failsafe, useObserver) {
   var watches = createWatches();
 
   var scrollContainer = container === globalThis.document.body ? globalThis : container;
@@ -107,7 +106,7 @@ function createInViewport(container, debounceValue, failsafe) {
     addEvent(globalThis, 'resize', debouncedCheck);
   }
 
-  if (supportsMutationObserver) {
+  if (supportsMutationObserver && useObserver) {
     observeDOM(watches, container, debouncedCheck);
   }
 
@@ -279,3 +278,5 @@ function observeDOM(watches, container, cb) {
     return filter.call(nodes, watches.isWatched).length > 0;
   }
 }
+
+export default inViewport;

@@ -3,6 +3,7 @@
   "version": "3.6.0",
   "description": "Get a callback when an element enters the viewport (body) or a custom viewport",
   "main": "./in-viewport.js",
+  "types": "./in-viewport.d.ts",
   "scripts": {
     "build": "browserify ./in-viewport.js -s inViewport -p deumdify | ccjs - > build/in-viewport.min.js",
     "watch": "watchify ./in-viewport.js -d -s inViewport -p deumdify -o build/in-viewport.min.js -v",
