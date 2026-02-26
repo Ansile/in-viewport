@@ -1,3 +1,8 @@
+# 3.6.0 (2026-02-26)
+
+  * fix: sensible defaults without processing overhead for the case when container is `body` element
+  * feat: modernized whole package
+
 # 3.5.0 (2017-05-14)
 
   * feat: Add `debounce` and `failsafe` options. More details in

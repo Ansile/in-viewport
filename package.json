@@ -1,5 +1,5 @@
 {
-  "name": "in-viewport",
+  "name": "@ansile/in-viewport",
   "version": "3.6.0",
   "description": "Get a callback when an element enters the viewport (body) or a custom viewport",
   "main": "./in-viewport.js",
